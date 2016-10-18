@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Testando</h1>
+    <h1>Rotas</h1>
   
     <router-link to="/a">Component A</router-link>
     <router-link to="/b">Component B</router-link>
