@@ -31,11 +31,18 @@
 		<ul>
 			<li v-for="item in list">{{item.name}}</li>
 		</ul>
+		
+		<input type="text" v-customDirective.a.b.c="">
 	</div>
 </template>
 
 <script>
 	import {orderBy} from 'lodash'
+	
+	let customDirective = (el, binding) =>{
+		el.value = binding.value
+		console.log('bind', el, binding)
+	}
 	
 	export default {
 		data () {
@@ -65,6 +72,9 @@
 		},
 		mounted(){
 			console.log(this.$refs, this.$refs.title)
+		},
+		directives: {
+			customDirective
 		},
 		computed: {
 			list(){
