@@ -42,7 +42,7 @@
 				this.items.splice(actItem, 1)
 			},
 			shuffle(){
-				this.items = [2,1,5,4,3]
+				this.items = [2, 1, 5, 4, 3]
 			},
 			toggle(){
 				this.visible = !this.visible
@@ -55,9 +55,11 @@
 	.fade-enter-active, .fade-leave-active{
 		transition: opacity .3s ease, transform .5s;
 	}
+	
 	.bounce-move{
 		transition: transform 1s;
 	}
+	
 	.fade-enter, .fade-leave-active{
 		opacity: 0;
 		transform: translateX(20px);
