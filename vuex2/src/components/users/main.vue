@@ -8,7 +8,7 @@
 			Localidade: {{localidade}}
 		</p>
 		
-		<cc-button></cc-button>
+		<cc-button :message="Testando"></cc-button>
 	</div>
 </template>
 

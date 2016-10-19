@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<button :disabled="!hasUser" @click="mudarDados">Mudar dados do usuário</button>
+		<button :disabled="!hasUser" @click="mudarDados">Mudar dados do usuário - {{message}}</button>
 	</div>
 </template>
 
@@ -8,6 +8,12 @@
 	import {mapActions} from 'vuex'
 	
 	export default{
+		props: {
+			message: {
+				type: [String, Number],
+				default: 'Teste'
+			}
+		},
 		methods: {
 			mudarDados(){
 				const data = {
