@@ -1,23 +1,29 @@
 <template>
 	<div id="app">
-		<img src="./assets/logo.png">
-		<h1>{{ msg }}</h1>
-		
-		<cc-animation-transition></cc-animation-transition>
+		<!--<cc-animation-transition></cc-animation-transition>-->
+		<cc-todos v-model="todos"></cc-todos>
 	</div>
 </template>
 
 <script>
 	import CcAnimationTransition from './components/AnimationTransition.vue'
+	import CcTodos from './components/Todos.vue'
 	
 	export default {
+		name: 'principal-application',
 		data () {
 			return {
-				msg: 'Hello Vue!'
+				todos: [
+					{
+						name: 'Site CiaMuller',
+						completed: true
+					}
+				]
 			}
 		},
 		components: {
-			CcAnimationTransition
+			CcAnimationTransition,
+			CcTodos
 		}
 	}
 </script>
