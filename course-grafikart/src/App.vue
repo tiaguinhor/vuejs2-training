@@ -2,7 +2,7 @@
 	<div id="app">
 		<!--<cc-animation-transition></cc-animation-transition>-->
 		<!--<cc-todos v-model="todos"></cc-todos>-->
-		<cc-carousel v-model="slides"></cc-carousel>
+		<cc-carousel v-model="slides" v-cloak></cc-carousel>
 	</div>
 </template>
 
