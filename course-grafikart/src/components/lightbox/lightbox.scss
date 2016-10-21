@@ -1,0 +1,130 @@
+.lightbox{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(white, .9);
+  &-image, &-close, &-loading, &-btn{
+    position: fixed;
+  }
+  &-btn{
+    top: 50%;
+    background-color: rgba(black, .8);
+    color: white;
+    font-weight: bolder;
+    font-size: 30px;
+    padding: 30px;
+    cursor: pointer;
+    transition: opacity .3s ease;
+    &:hover{
+      opacity: .8;
+    }
+    &.lightbox-next{
+      right: 20px;
+    }
+    &.lightbox-prev{
+      left: 20px;
+    }
+  }
+  &-close{
+    top: 20px;
+    right: 50px;
+    color: black;
+    cursor: pointer;
+    font-size: 50px;
+    transition: transform .3s ease;
+    &:hover{
+      transform: scale(1.2);
+    }
+  }
+  &-loading{
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    margin: -20px 0 0 -20px;
+    background-color: #444;
+    background-color: rgba(black, .4);
+    border-radius: 50%;
+    &:after{
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border-radius: 50%;
+      animation: lightbox-loading 1s ease infinite;
+    }
+  }
+}
+
+.lightbox-fade-enter-active, .lightbox-fade-leave-active{
+  transition: opacity .3s ease;
+}
+
+.lightbox-fade-enter, .lightbox-fade-leave-active{
+  opacity: 0;
+}
+
+.lightbox-next-enter-active, .lightbox-next-leave-active{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transition: transform .5s, opacity .5s;
+}
+
+.lightbox-next-enter-active{
+  transition-delay: .3s;
+}
+
+.lightbox-next-enter{
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+.lightbox-next-leave-active{
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+.lightbox-prev-enter-active, .lightbox-prev-leave-active{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transition: transform .5s, opacity .5s;
+}
+
+.lightbox-prev-enter-active{
+  transition-delay: .3s;
+}
+
+.lightbox-prev-enter{
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+.lightbox-prev-leave-active{
+  opacity: 0;
+  transform: translateX(100px);
+}
+
+@keyframes lightbox-loading{
+  0%{
+    opacity: .5;
+    transform: scale(.75);
+  }
+  50%{
+    opacity: 1;
+    transform: scale(1);
+  }
+  100%{
+    opacity: .5;
+    transform: scale(.75);
+  }
+}

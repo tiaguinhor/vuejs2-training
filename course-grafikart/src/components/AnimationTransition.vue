@@ -25,6 +25,7 @@
 
 <script>
 	export default{
+		name: 'animation-transition',
 		data(){
 			return {
 				visible: true,
