@@ -5,10 +5,12 @@
 		<!--<cc-carousel v-model="slides" v-cloak></cc-carousel>-->
 		
 		<!--lightbox-->
-		<a :href="'http://lorempicsum.com/futurama/800/600/' + n" v-lightbox v-for="n in 9">
-			<img :src="'http://lorempicsum.com/futurama/150/150/' + n" alt="">
-		</a>
-		<cc-lightbox></cc-lightbox>
+		<!--<a :href="'http://lorempicsum.com/futurama/800/600/' + n" v-lightbox v-for="n in 9">-->
+		<!--<img :src="'http://lorempicsum.com/futurama/150/150/' + n" alt="">-->
+		<!--</a>-->
+		<!--<cc-lightbox></cc-lightbox>-->
+		
+		<cc-vue-resource></cc-vue-resource>
 	</div>
 </template>
 
@@ -16,13 +18,13 @@
 	//	import CcAnimationTransition from './components/AnimationTransition.vue'
 	//	import CcTodos from './components/Todos.vue'
 	//	import CcCarousel from './components/Carousel.vue'
-	import CcLightbox from './components/lightbox/Lightbox.vue'
+	//	import CcLightbox from './components/lightbox/Lightbox.vue'
+	import CcVueResource from './components/VueResource.vue'
 	
 	export default {
 		name: 'principal-application',
 		data () {
 			return {
-				title: 'futurama'
 				//				slides: [
 				//					{
 				//						title: 'Futurama',
@@ -44,8 +46,9 @@
 		components: {
 			//			CcAnimationTransition,
 			//			CcTodos,
-			//			CcCarousel
-			CcLightbox
+			//			CcCarousel,
+			//			CcLightbox,
+			CcVueResource
 		}
 	}
 </script>
