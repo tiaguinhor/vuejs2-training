@@ -5,9 +5,17 @@ import VueRource from 'vue-resource'
 import App from './App.vue'
 
 Vue.use(VueRource)
+Vue.http.options.root = 'http://jsonplaceholder.typicode.com'
+Vue.http.headers.common['Authorization'] = 'Basic YXBpOnBhc3N3b3Jk';
+Vue.http.interceptors.push((request, next)  => {
+	next((response) => {
+		if(request.after)
+			request.after.call(this, response)
+	})
+})
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  render: h => h(App)
+	el: '#app',
+	render: h => h(App)
 })

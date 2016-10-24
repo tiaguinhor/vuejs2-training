@@ -43,7 +43,13 @@
 			}
 		},
 		mounted(){
-			this.$http.get('http://jsonplaceholder.typicode.com/users').then((response) =>{
+			this.$user = this.$resource('users{/id}', {}, {}, {
+				before: ()=> this.loading = true,
+				after: ()=> this.loading = false
+			})
+			
+			//			this.$http.get('http://jsonplaceholder.typicode.com/users')
+			this.$user.query().then((response) =>{
 				this.users = response.data
 			}, (error) =>{
 				console.log('error', error)
@@ -51,22 +57,20 @@
 		},
 		methods: {
 			update(user){
-				this.loading = true
-				
-				this.$http.put('http://jsonplaceholder.typicode.com/users/' + user.id, {name: user.name}).then((response) =>{
-					//					this.users = response.data
+				//				this.$http.put('http://jsonplaceholder.typicode.com/users/' + user.id, {name: user.name})
+				this.$user.save({id: user.id}, {name: user.name}).then((response) =>{
+					this.users = response.data
 				}, (error) =>{
 					console.log('error', error)
-				}).then(() => this.loading = false)
+				})
 			},
 			remove(user){
-				this.loading = true
-				
-				this.$http.delete('http://jsonplaceholder.typicode.com/users/' + user.id, {name: user.name}).then((response) =>{
+				//				this.$http.delete('http://jsonplaceholder.typicode.com/users/' + user.id)
+				this.$user.remove({id: user.id}).then((response) =>{
 					this.users.filter(u => u !== user)
 				}, (error) =>{
 					console.log('error', error)
-				}).then(() => this.loading = false)
+				})
 				
 			}
 		}
