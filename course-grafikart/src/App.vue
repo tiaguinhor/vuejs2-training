@@ -4,7 +4,7 @@
 		<!--<cc-animation-transition></cc-animation-transition>-->
 		
 		<!--todos-->
-		<!--<cc-todos v-model="todos" v-cloak></cc-todos>-->
+		<cc-todos v-cloak></cc-todos>
 		
 		<!--carousel-->
 		<!--<cc-carousel v-model="slides" v-cloak></cc-carousel>-->
@@ -18,27 +18,27 @@
 		<!--<cc-vue-resource></cc-vue-resource>-->
 		
 		<!--vue-router-->
-		<div class="ui fixed iverted menu">
-			<div class="ui container">
-				<router-link :to="{name: 'transition'}" class="header item">Animation/Transition</router-link>
-				<router-link :to="{name: 'users'}" class="item">Users</router-link>
-				<router-link :to="{name: 'pages', params: {id: 1}} " class="item">Pages</router-link>
-			</div>
-		</div>
-		<div class="sidebar">
-			<router-view name="sidebar"></router-view>
-		</div>
-		<div class="main">
-			<transition name="bounce" mode="out-in">
-				<router-view></router-view>
-			</transition>
-		</div>
+		<!--<div class="ui fixed iverted menu">-->
+		<!--<div class="ui container">-->
+		<!--<router-link :to="{name: 'transition'}" class="header item">Animation/Transition</router-link>-->
+		<!--<router-link :to="{name: 'users'}" class="item">Users</router-link>-->
+		<!--<router-link :to="{name: 'pages', params: {id: 1}} " class="item">Pages</router-link>-->
+		<!--</div>-->
+		<!--</div>-->
+		<!--<div class="sidebar">-->
+		<!--<router-view name="sidebar"></router-view>-->
+		<!--</div>-->
+		<!--<div class="main">-->
+		<!--<transition name="bounce" mode="out-in">-->
+		<!--<router-view></router-view>-->
+		<!--</transition>-->
+		<!--</div>-->
 	</div>
 </template>
 
 <script>
 	//	import CcAnimationTransition from './components/AnimationTransition.vue'
-	//	import CcTodos from './components/Todos.vue'
+	import CcTodos from './components/todos-vuex/Todos.vue'
 	//	import CcCarousel from './components/Carousel.vue'
 	//	import CcLightbox from './components/lightbox/Lightbox.vue'
 	//	import CcVueResource from './components/VueResource.vue'
@@ -56,18 +56,12 @@
 				//						title: 'Ainda Sobre Futurama',
 				//						image: 'http://lorempicsum.com/futurama/630/300/2'
 				//					}
-				//				],
-				//				todos: [
-				//					{
-				//						name: 'Site CiaMuller',
-				//						completed: true
-				//					}
 				//				]
 			}
 		},
 		components: {
 			//			CcAnimationTransition,
-			//			CcTodos,
+			CcTodos,
 			//			CcCarousel,
 			//			CcLightbox,
 			//			CcVueResource

@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import VueRource from 'vue-resource'
 import VueRouter from 'vue-router'
-import App from './App.vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
 
 Vue.use(VueRource)
 Vue.http.options.root = 'http://jsonplaceholder.typicode.com'
@@ -79,5 +81,5 @@ const router = new VueRouter({
 new Vue({
 	el: '#app',
 	router,
-	render: h => h(App)
+	render: h => h(require('./App.vue'))
 })

@@ -14,23 +14,23 @@
 			<ul class="todo-list">
 				<li class="todo" v-for="todo in filteredTodos" :class="{completed: todo.completed, editing: todo === editing}">
 					<div class="view">
-						<input v-bind="{id: todo.name}" type="checkbox" v-model="todo.completed" class="toggle">
-						<label v-bind="{for: todo.name}" @dblclick="editTodo(todo)">{{todo.name}}</label>
+						<input type="checkbox" v-model="todo.completed" @click="toggleCompleted(todo)" class="toggle">
+						<label @dblclick="editTodo(todo)">{{todo.name}}</label>
 						<button class="destroy" @click.prevent="removeTodo(todo)"></button>
 					</div>
 					
 					<input type="text" class="edit"
-					       v-model="todo.name"
+					       v-model.lazy="todo.name"
 					       v-focus="todo === editing"
-					       @keyup.enter="editTodoDone()"
+					       @keyup.enter="editTodoDone(todo)"
 					       @keyup.esc="editCancel()"
-					       @blur="editTodoDone()">
+					       @blur="editTodoDone(todo)">
 				</li>
 			</ul>
 		</div>
 		
 		<footer class="footer" v-if="hasTodo">
-			<span class="todo-count"><strong>{{remaining}}</strong> tarefa pendente</span>
+			<span class="todo-count"><strong>{{remainingTodosCount}}</strong> tarefa pendente</span>
 			
 			<ul class="filters">
 				<li>
@@ -50,23 +50,22 @@
 				</li>
 			</ul>
 			
-			<button class="clear-completed" v-if="hasDoneTodo" @click="removeCompleted()">Limpar concluidas</button>
+			<button class="clear-completed" v-if="completedTodosCount" @click="removeCompleted()">Limpar concluidas</button>
 		</footer>
 	</div>
 </template>
 
 <script>
 	import Vue from 'vue'
+	import store from './Store'
+	import {mapActions, mapGetters} from 'vuex'
 	
 	export default{
+		store,
 		name: 'ToDo-list',
-		props: {
-			value: {type: Array, default: []}
-		},
 		data(){
 			return {
 				title: 'ToDo List',
-				todos: this.value,
 				newTodo: '',
 				oldTodo: '',
 				filter: 'all',
@@ -74,53 +73,66 @@
 			}
 		},
 		methods: {
+			...mapActions({
+				addTodoStore: 'addTodo',
+				editTodoStore: 'editTodo',
+				deleteTodoStore: 'deleteTodo',
+				deleteTodoCompletedStore: 'deleteTodoCompleted',
+				toggleCompletedStore: 'toggleCompleted',
+				allDoneStore: 'allDone'
+			}),
 			addTodo(){
-				this.todos.push({name: this.newTodo, completed: false})
+				this.addTodoStore(this.newTodo)
 				this.newTodo = ''
 			},
 			removeTodo(todo){
-				this.todos = this.todos.filter(el => el !== todo)
+				this.deleteTodoStore(todo)
 				this.$emit('input', this.todos)
 			},
 			removeCompleted(){
-				this.todos = this.todos.filter(todo => !todo.completed)
+				this.deleteTodoCompletedStore()
 				this.$emit('input', this.todos)
 			},
 			editTodo(todo){
 				this.editing = todo
 				this.oldTodo = todo.name
 			},
-			editTodoDone(){
+			editTodoDone(todo){
+				this.editTodoStore(todo)
 				this.editing = null
 			},
 			editCancel(){
 				this.editing.name = this.oldTodo
 				this.editTodoDone()
+			},
+			toggleCompleted(todo){
+				this.toggleCompletedStore(todo)
 			}
 		},
 		computed: {
+			...mapGetters([
+				'todos',
+				'completedTodos',
+				'remainingTodos',
+				'completedTodosCount',
+				'remainingTodosCount'
+			]),
 			allDone: {
 				get(){
 					return this.remaining === 0
 				},
 				set(value){
-					this.todos.forEach(todo => todo.completed = value)
+					this.allDoneStore(value)
 				}
 			},
 			hasTodo(){
 				return this.todos.length
 			},
-			hasDoneTodo(){
-				return this.todos.filter(todo => todo.completed).length
-			},
-			remaining(){
-				return this.todos.filter(todo => !todo.completed).length
-			},
 			filteredTodos(){
 				if(this.filter === 'todo')
-					return this.todos.filter(todo => !todo.completed)
+					return this.remainingTodos
 				else if(this.filter === 'done')
-					return this.todos.filter(todo => todo.completed)
+					return this.completedTodos
 				
 				return this.todos
 			}
@@ -137,14 +149,16 @@
 	}
 </script>
 
-<style src="../assets/css/todos.css"></style>
+<style src="./todos.scss" lang="sass"></style>
 <style>
 	footer::before{
 		display: none;
 	}
+	
 	button.destroy{
 		cursor: pointer;
 	}
+	
 	.toggle-all{
 		top: -96px;
 		cursor: pointer;
