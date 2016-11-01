@@ -14,8 +14,8 @@ require('laravel-elixir-vue-2');
  */
 
 elixir(mix =>{
-	mix.styles(['chat.css', 'style.css'], 'public/css/style.css');
-	mix.browserify(['app.js'], 'public/js/app.js');
+	mix.styles(['*.css'], 'public/css/style.css')
+	.webpack(['app.js'], 'public/js/app.js');
 });
 
-// .webpack('app.js');
+// mix.browserify(['app.js'], 'public/js/app.js');

@@ -21,7 +21,11 @@
     "lodash": "^4.16.2",
     "vue": "^2.0.3",
     "vue-resource": "^1.0.3",
-    "vue-route": "^1.5.1",
+    "vue-router": "^2.0.1",
     "vueify": "^9.2.4"
+  },
+  "dependencies": {
+    "vue-moment": "^2.0.2",
+    "vue-msgbox": "^2.0.1"
   }
 }

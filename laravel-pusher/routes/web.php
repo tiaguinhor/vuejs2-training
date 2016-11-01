@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/add-room', 'RoomController@addNewRoom');
+Route::get('/all-rooms', 'RoomController@allRooms');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

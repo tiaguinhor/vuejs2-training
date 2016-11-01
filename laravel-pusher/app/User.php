@@ -30,4 +30,8 @@ class User extends Authenticatable{
 	public function messages(){
 		return $this->hasMany('App\Messages', 'user_id');
 	}
+
+	public function rooms(){
+		return $this->hasMany('App\Rooms', 'user_id');
+	}
 }

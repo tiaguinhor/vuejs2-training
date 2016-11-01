@@ -17,6 +17,8 @@ require('bootstrap-sass');
  */
 
 window.Vue = require('vue');
+window.VueRouter = require('vue-router');
+window.VueResource = require('vue-resource');
 require('vue-resource');
 
 /**

@@ -4,7 +4,8 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
+Vue.use(require('vue-moment'))
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -12,8 +13,12 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+// Vue.component('example', require('./components/Example.vue'));
 
-const app = new Vue({
-	el: 'body'
-});
+const routes = require('./routes.js')
+const router = new VueRouter(routes)
+
+new Vue({
+	// el: '#app',
+	router
+}).$mount('#app')
