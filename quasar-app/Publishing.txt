@@ -1,0 +1,9 @@
+0 - cordova build --release android
+
+1 - (Rodar somente se ainda não houver uma keystore criada) keytool -genkey -v -keystore cartaofidelidade-key.keystore -alias cartaofidelidade-key -keyalg RSA -keysize 2048 -validity 100000
+
+2 - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore cartaofidelidade-key.keystore C:\lamp\www\app-cartaofidelidade\ionic\platforms\android\ant-build\MainActivity-release-unsigned.apk cartaofidelidade-key
+
+3 - zipalign -f -v 4 C:\lamp\www\app-cartaofidelidade\ionic\platforms\android\ant-build\MainActivity-release-unsigned.apk CartaoFidelidade.apk
+
+Passphrase: digialta485
