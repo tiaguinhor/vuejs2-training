@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddRoomRequest;
 use App\Room;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller{
 
@@ -17,7 +18,18 @@ class RoomController extends Controller{
 		return 'err';
 	}
 
-	public function allRooms(){
+	public function getAllRooms(){
 		return Room::with('users')->get();
+	}
+
+	public function getMyRooms(){
+		return Room::where('user_id', Auth::user()->id)->get();
+	}
+
+	public function deleteRoom($roomId){
+		if(Room::find($roomId)->delete())
+			return 'done';
+
+		return 'err';
 	}
 }

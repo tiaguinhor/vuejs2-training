@@ -1,4 +1,4 @@
-import CcChatbox from './components/Chatbox.vue'
+import CcChatbox from './components/chatbox/Chatbox.vue'
 import CcAddRoom from './components/rooms/AddRoom.vue'
 import CcAllRooms from './components/rooms/AllRooms.vue'
 import CcMyRooms from './components/rooms/MyRooms.vue'
@@ -8,7 +8,7 @@ module.exports = {
 	base: __dirname,
 	routes: [
 		{
-			path: '/chat',
+			path: '/chat/:roomId',
 			name: 'chat',
 			component: CcChatbox
 		},

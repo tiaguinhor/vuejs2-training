@@ -116,11 +116,11 @@
 								<i class="fa fa-users"></i> All Rooms <span class="label label-danger pull-right">2</span>
 							</router-link>
 						</li>
-						<li>
-							<router-link :to="{name: 'chat'}">
-								<i class="fa fa-users"></i> Chat <span class="label label-danger pull-right">2</span>
-							</router-link>
-						</li>
+						{{--<li>--}}
+							{{--<router-link :to="{name: 'chat'}">--}}
+								{{--<i class="fa fa-users"></i> Chat <span class="label label-danger pull-right">2</span>--}}
+							{{--</router-link>--}}
+						{{--</li>--}}
 					</ul>
 				</aside>
 

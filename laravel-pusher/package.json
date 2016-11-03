@@ -25,7 +25,7 @@
     "vueify": "^9.2.4"
   },
   "dependencies": {
-    "vue-moment": "^2.0.2",
+    "moment": "^2.15.2",
     "vue-msgbox": "^2.0.1"
   }
 }

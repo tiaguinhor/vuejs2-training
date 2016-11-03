@@ -16,7 +16,11 @@ Route::get('/', function () {
 });
 
 Route::post('/add-room', 'RoomController@addNewRoom');
-Route::get('/all-rooms', 'RoomController@allRooms');
+Route::get('/all-rooms', 'RoomController@getAllRooms');
+Route::get('/my-rooms', 'RoomController@getMyRooms');
+Route::get('/delete-room/{roomId}', 'RoomController@deleteRoom');
+
+Route::get('/add-message', 'MessageController@addNewMessage');
 
 Auth::routes();
 
