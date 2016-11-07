@@ -13,6 +13,9 @@
 	{{Html::style('./css/style.css')}}
 
 	<style>
+		.username{
+			color: white;
+		}
 		.padding{
 			padding: 0 20px;
 			color: white;
@@ -49,8 +52,11 @@
 
 							@if (Auth::check())
 								<div class="user-name">
-									<a href="#">{{ Auth::user()->name }}</a>
-									<a href="{{url('logout')}}" class="padding"><i class="fa fa-lock"></i> Logout</a>
+									<router-link :to="{name: 'profile'}" class="username">
+										<img src="{{getAvatar(Auth::user()->avatar)}}" alt="" width="20" class="img-circle"> {{ Auth::user()->name }}
+									</router-link>
+
+									<a href="javascript:" class="padding"><i class="fa fa-lock"></i> Logout</a>
 								</div>
 							@endif
 						</div>

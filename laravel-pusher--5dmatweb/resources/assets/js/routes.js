@@ -2,6 +2,7 @@ import CcChatbox from './components/chatbox/Chatbox.vue'
 import CcAddRoom from './components/rooms/AddRoom.vue'
 import CcAllRooms from './components/rooms/AllRooms.vue'
 import CcMyRooms from './components/rooms/MyRooms.vue'
+import CcProfile from './components/Profile.vue'
 
 module.exports = {
 	// mode: 'history',
@@ -26,6 +27,15 @@ module.exports = {
 			path: '/myRooms',
 			name: 'myRooms',
 			component: CcMyRooms
+		},
+		{
+			path: '/profile',
+			name: 'profile',
+			component: CcProfile
+		},
+		{
+			path: '*',
+			component: CcAllRooms
 		}
 	]
 }

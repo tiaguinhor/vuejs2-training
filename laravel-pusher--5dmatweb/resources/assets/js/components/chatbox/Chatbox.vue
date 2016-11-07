@@ -1,15 +1,6 @@
 <template>
 	<div class="row">
 		<div class="col-lg-9">
-			<div class="row">
-				<div class="col-xs-6 text-left">
-					<router-link :to="{name: 'allRooms'}" class="btn btn-info">All Rooms</router-link>
-				</div>
-				<div class="col-xs-6 text-right">
-					<router-link :to="{name: 'myRooms'}" class="btn btn-danger">My Rooms</router-link>
-				</div>
-			</div>
-			
 			<div class="chat_window">
 				<div class="top_menu">
 					<div class="title">{{roomName}} / Online users ({{onlineUsers}})</div>
@@ -21,8 +12,8 @@
 		</div>
 		
 		<div class="col-lg-3">
-			<cc-ac></cc-ac>
-			<cc-whois-online></cc-whois-online>
+			<cc-user-action :userAction="userAction"></cc-user-action>
+			<cc-whois-online :whoisOnline="whoisOnline"></cc-whois-online>
 		</div>
 	</div>
 </template>
@@ -31,7 +22,7 @@
 	import bus from '../../utils/bus'
 	import CcAddMessage from './AddMessage.vue'
 	import CcAllMessages from './AllMessage.vue'
-	import CcAc from './Ac.vue'
+	import CcUserAction from './UserAction.vue'
 	import CcWhoisOnline from './WhoisOnline.vue'
 	
 	export default{
@@ -41,25 +32,34 @@
 				messages: [],
 				onlineUsers: 0,
 				channel: '',
-				roomName: this.$route.params.roomName
+				roomName: this.$route.params.roomName,
+				userAction: [],
+				whoisOnline: []
 			}
 		},
 		components: {
 			CcAddMessage,
 			CcAllMessages,
-			CcAc,
+			CcUserAction,
 			CcWhoisOnline
 		},
-		created(){
+		ready(){
+			window.beforeunload =	this.leaving()
+		},
+		mounted(){
 			this.bindEvents(this.$route.params.roomId + '-room', 'newMessages', this.messages)
 			this.onlineUpdate()
 			this.getMeOnline()
 		},
 		methods: {
+			leaving(){
+				this.$http.get('/leaving/' + this.$route.params.roomId).then(response =>{
+					//
+				}, err => console.log(err))
+			},
 			bindEvents(name, action, object){
 				this.channel = this.$pusher.subscribe(name)
 				this.channel.bind(action, data =>{
-					console.log(object);
 					object.push(data)
 				})
 			},
@@ -70,10 +70,18 @@
 			},
 			onlineUpdate(){
 				this.channel = this.$pusher.subscribe(this.$route.params.roomId + '-online')
-				this.channel.bind('onlineUser', data => this.onlineUsers = data)
+				this.channel.bind('onlineUser', data =>{
+					this.onlineUsers = data.count
+					this.whoisOnline = data.user
+					this.userAction.push(data.action)
+				})
 				
 				this.channel = this.$pusher.subscribe(this.$route.params.roomId + '-offline')
-				this.channel.bind('leaveUser', data => this.onlineUsers = data)
+				this.channel.bind('offlineUser', data =>{
+					this.onlineUsers = data.count
+					this.whoisOnline = data.user
+					this.userAction.push(data.action)
+				})
 			}
 		}
 	}

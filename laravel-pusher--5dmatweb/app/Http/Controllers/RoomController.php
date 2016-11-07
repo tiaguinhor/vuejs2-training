@@ -30,23 +30,16 @@ class RoomController extends Controller{
 	public function getMeOnline($roomId){
 		$user = Auth::user();
 		$userOnline = Online::where('user_id', $user->id);
+
 		if($userOnline->count() > 0):
+			$leaveRoom = $userOnline->first();
 			$userOnline->delete();
 
-			$room = Online::where('room_id', $roomId)->count();
-			triggerPusher($roomId.'-offline', 'leaveUser', $room);
+			$this->onlineUsers($leaveRoom->room_id, "{$user->name} leave the room {$leaveRoom->name}", 'offline');
 		endif;
 
-		//new user
-		$online = new Online();
-		$online->user_id = $user->id;
-		$online->room_id = $roomId;
-		$online->timelogin = time();
-		$online->timelogout = time();
-		$online->save();
-
-		$room = Online::where('room_id', $roomId)->count();
-		triggerPusher($roomId.'-online', 'onlineUser', $room);
+		$this->createOnline($user->id, $roomId);
+		$this->onlineUsers($roomId, "{$user->name} logged in the room {$user->name}", 'online');
 
 		return 'done';
 	}
@@ -56,5 +49,34 @@ class RoomController extends Controller{
 			return 'done';
 
 		return 'err';
+	}
+
+	public function leaving($roomId){
+		$user = Auth::user();
+		Online::where('user_id', $user->id)->delete();
+		$this->onlineUsers($roomId, "{$user->name} leave this room", 'offline');
+	}
+
+	protected function createOnline($userId, $roomId){
+		$online = new Online();
+		$online->user_id = $userId;
+		$online->room_id = $roomId;
+		$online->timelogin = time();
+		$online->timelogout = time();
+		$online->save();
+	}
+
+	public function onlineUsers($roomId, $action, $type){
+		$room = Room::find($roomId)->withCount('onlines')->first()->onlines_count;
+		$onlineUser = Online::where('room_id', $roomId)->with('users')->get();
+		$array = [
+			'count'  => $room,
+			'user'   => $onlineUser,
+			'action' => $action
+		];
+
+		triggerPusher("{$roomId}-{$type}", "{$type}User", $array);
+
+		return $array;
 	}
 }

@@ -31,6 +31,7 @@
     "moment": "^2.15.2",
     "pusher-js": "^3.2.2",
     "vue-msgbox": "^2.0.1",
-    "vue-pusher": "^0.2.0"
+    "vue-pusher": "^0.2.0",
+    "vue-sticky-scroll": "^0.1.0"
   }
 }

@@ -22,7 +22,7 @@
 
 <script>
 	import moment from 'moment'
-	require('moment/locale/pt-br')
+	import 'moment/locale/pt-br'
 	
 	export default{
 		data(){

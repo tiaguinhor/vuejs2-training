@@ -2,6 +2,16 @@
 	<div>
 		<ul class="messages">
 			<li class="message left appeared" v-for="message in messages">
+				<div class="avatar">
+					<span v-if="message.users.avatar != ''">
+						<img v-bind:src="'/images/avatars/'+message.users.avatar" alt="" width="60" class="img-circle">
+					</span>
+					
+					<span v-else>
+						<img src="/images/avatars/profile-image.jpg" alt="" width="60" class="img-circle">
+					</span>
+				</div>
+				
 				<div class="text_wrapper">
 					<div class="text">
 						<span class="user">
@@ -24,6 +34,24 @@
 	</div>
 </template>
 
+<script>
+	import 'vue-sticky-scroll'
+	
+	export default{
+		name: 'AllMessages',
+		props: {
+			messages: {
+				type: Array,
+				default: () => []
+			}
+		},
+		data(){
+			return{
+			}
+		}
+	}
+</script>
+
 <style>
 	.small{
 		font-size: 10px;
@@ -39,19 +67,3 @@
 		opacity: 1;
 	}
 </style>
-
-<script>
-	export default{
-		name: 'AllMessages',
-		props: {
-			messages: {
-				type: Array,
-				default: () => []
-			}
-		},
-		data(){
-			return{
-			}
-		}
-	}
-</script>
