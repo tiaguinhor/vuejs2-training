@@ -4,7 +4,8 @@
 		<!--<cc-animation-transition></cc-animation-transition>-->
 		
 		<!--todos-->
-		<cc-todos v-cloak></cc-todos>
+		<!--<cc-todos v-cloak></cc-todos>-->
+		<cc-fire-do></cc-fire-do>
 		
 		<!--carousel-->
 		<!--<cc-carousel v-model="slides" v-cloak></cc-carousel>-->
@@ -38,7 +39,8 @@
 
 <script>
 	//	import CcAnimationTransition from './components/AnimationTransition.vue'
-	import CcTodos from './components/todos-vuex/Todos.vue'
+	//	import CcTodos from './components/todos-vuex/Todos.vue'
+	import CcFireDo from './components/todos-vuex/FireDo.vue'
 	//	import CcCarousel from './components/Carousel.vue'
 	//	import CcLightbox from './components/lightbox/Lightbox.vue'
 	//	import CcVueResource from './components/VueResource.vue'
@@ -61,7 +63,8 @@
 		},
 		components: {
 			//			CcAnimationTransition,
-			CcTodos,
+			//			CcTodos,
+			CcFireDo,
 			//			CcCarousel,
 			//			CcLightbox,
 			//			CcVueResource
