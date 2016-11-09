@@ -4,7 +4,7 @@
   "author": "Tiago Calogero <t.calogero@digialta.com.br>",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot --host 192.168.0.42",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {

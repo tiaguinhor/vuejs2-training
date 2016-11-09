@@ -12,7 +12,7 @@
 			<input type="checkbox" class="toggle-all" v-model="allDone">
 			
 			<ul class="todo-list">
-				<li class="todo" v-for="todo in todos" :class="{completed: todo.completed, editing: todo === editing}">
+				<li class="todo" v-for="todo in filteredTodos" :class="{completed: todo.completed, editing: todo === editing}">
 					<div class="view">
 						<input type="checkbox" v-model="todo.completed" @click="toggleCompleted(todo)" class="toggle">
 						<label @dblclick="editTodo(todo)">{{todo.name}}</label>
@@ -30,7 +30,7 @@
 		</div>
 		
 		<footer class="footer" v-if="hasTodo">
-			<span class="todo-count"><strong></strong> tarefa pendente</span>
+			<span class="todo-count"><strong>{{pendentsTodo}}</strong> tarefa pendente</span>
 			
 			<ul class="filters">
 				<li>
@@ -73,12 +73,13 @@
 		name: 'FireDo-list',
 		data(){
 			return {
-				title: 'ToDo List',
+				title: 'FireDo List',
 				todos: [],
 				newTodo: '',
 				oldTodo: '',
 				filter: 'all',
-				editing: null
+				editing: null,
+				allDone: false
 			}
 		},
 		created(){
@@ -109,8 +110,6 @@
 			removeTodo(todo){
 				//remove firebase
 				db.ref('todos/' + todo['.key']).remove()
-				
-				this.$emit('input', this.todos)
 			},
 			removeCompleted(){
 				//remove firebase
@@ -118,8 +117,6 @@
 					if(todo.completed)
 						db.ref('todos/' + todo['.key']).remove()
 				})
-				
-				this.$emit('input', this.todos)
 			},
 			editTodo(todo){
 				this.editing = todo
@@ -137,17 +134,28 @@
 			},
 			toggleCompleted(todo){
 				//edit firebase
-				db.ref('todos/' + todo['.key']).update({completed: todo.completed})
+				db.ref('todos/' + todo['.key']).update({completed: !todo.completed})
 			}
 		},
 		computed: {
-			allDone: {
-				set(value){
-					this.todos.map(todo => todo.completed = value)
-				}
-			},
 			hasTodo(){
 				return this.todos.length
+			},
+			filteredTodos(){
+				if(this.filter === 'todo')
+					return this.todos.filter(todo => !todo.completed)
+				else if(this.filter === 'done')
+					return this.todos.filter(todo => todo.completed)
+				
+				return this.todos
+			},
+			pendentsTodo(){
+				return this.todos.filter(todo => !todo.completed).length
+			}
+		},
+		watch: {
+			allDone(newVal, oldVal){
+				this.todos.map(todo => db.ref('todos/' + todo['.key']).update({completed: newVal}))
 			}
 		},
 		directives: {
