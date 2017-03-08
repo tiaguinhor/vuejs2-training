@@ -8,21 +8,25 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import App from './App'
+import Profile from './components/Profile.vue'
 import Categories from './components/Categories.vue'
 import Products from './components/Products.vue'
 
 const routes = [
-  {path: '/categories', component: Categories},
-  {path: '/products', component: Products}
+	{path: '/profile/:profileId', component: Profile, name: 'profile'},
+	{path: '/logout', component: Categories, name: 'logout'},
+	{path: '/categories', component: Categories, name: 'categories'},
+	{path: '/products', component: Products, name: 'products'},
+	{path: '*', redirect: '/categories'}
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  routes
+	mode: 'history',
+	routes
 })
 
 /* eslint-disable no-new */
 new Vue({
-  router,
-  render: h => h(App)
+	router,
+	render: h => h(App)
 }).$mount('#app')

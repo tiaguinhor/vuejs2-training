@@ -9,7 +9,7 @@
 		</md-toolbar>
 		
 		<md-sidenav class="md-left" ref="leftSidenav">
-			<md-toolbar class="md-medium">
+			<md-toolbar>
 				<div class="md-toolbar-container">
 					<h2 class="md-title">Sidenav</h2>
 				</div>
@@ -17,16 +17,16 @@
 			
 			<md-list @click.native="closeLeftSidenav">
 				<md-list-item>
-					<router-link to="" exact>Perfil</router-link>
+					<router-link :to="{name: 'profile', params: {profileId: 1}}" exact>Perfil</router-link>
 				</md-list-item>
 				<md-list-item>
-					<router-link to="/categories" exact>Categorias</router-link>
+					<router-link :to="{name: 'categories'}" exact>Categorias</router-link>
 				</md-list-item>
 				<md-list-item>
-					<router-link to="/products" exact>Produtos</router-link>
+					<router-link :to="{name: 'products'}" exact>Produtos</router-link>
 				</md-list-item>
 				<md-list-item>
-					<router-link to="" exact>Sair</router-link>
+					<router-link :to="{name: 'logout'}" exact>Sair</router-link>
 				</md-list-item>
 			</md-list>
 		</md-sidenav>
@@ -56,5 +56,4 @@
 	}
 </script>
 
-<style>
-</style>
+<style src="assets/sass/style.scss" lang="sass"></style>
