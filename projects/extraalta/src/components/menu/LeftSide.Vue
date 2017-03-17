@@ -128,14 +128,14 @@
 		computed: {
 			filteredCustomers(){
 				let customersOrdered = _.orderBy(this.customers, 'name')
-				
+
 				return customersOrdered.filter((customer) =>{
 					return customer.name.toLowerCase().indexOf(this.search.customer.toLowerCase()) !== -1
 				})
 			}
 		},
 		methods: {
-			closeLeftSidenav() {
+			closeLeftSidenav(){
 				this.$refs.leftSidenav.close()
 			}
 		},
