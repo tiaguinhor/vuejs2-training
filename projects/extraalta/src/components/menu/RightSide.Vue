@@ -2,9 +2,11 @@
 	<md-sidenav class="md-right" ref="rightSidenav">
 		<md-toolbar>
 			<div class="md-toolbar-container">
-				<h2 class="md-title">Sidenav</h2>
+				<h2 class="md-title"><slot name="title"></slot></h2>
 			</div>
 		</md-toolbar>
+		
+		<slot>Default description here</slot>
 		
 		<md-list>
 			<md-list-item>
